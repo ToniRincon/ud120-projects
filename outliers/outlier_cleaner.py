@@ -14,7 +14,10 @@ def outlierCleaner(predictions, ages, net_worths):
     cleaned_data = []
 
     ### your code goes here
-
-    
+    import numpy as np
+    errors = np.absolute(predictions-net_worths)
+    indexes = np.argsort(errors,axis=0)[0:len(ages)*0.9]
+    cleaned_data = [(ages[i],net_worths[i],predictions[i]-net_worths[i]) for i in indexes]
+       
     return cleaned_data
 
