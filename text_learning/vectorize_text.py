@@ -52,19 +52,18 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
 
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
-			for w in ["sara", "shackleton", "chris", "germani"]:
-				text = text.replace(w,'')
             text = text.replace("sara","")
             text = text.replace("shackleton","")
             text = text.replace("chris","")
             text = text.replace("germani","")
-            ' '.join(text.split())
+            text = text.replace("sshacklensf","")
+            text = text.replace("cgermannsf","")
 
             ### append the text to word_data
             word_data = word_data + [text]
 
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
-            from_data = from_data + [0 if name == "sara" else 1]
+            from_data = from_data + [1 if name == "sara" else 0]
 
             email.close()
 
@@ -72,20 +71,18 @@ print "emails processed"
 from_sara.close()
 from_chris.close()
 
-print word_data[152]
-
 pickle.dump( word_data, open("your_word_data.pkl", "w") )
 pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
-
+print word_data[152]
 
 
 
 ### in Part 4, do TfIdf vectorization here
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-vectorizer = TfidfVectorizer(stop_words="english")
-vectorizer.fit(word_data)
-print len(vectorizer.get_feature_names())
-print vectorizer.get_feature_names()[100]
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+vectorizer = TfidfVectorizer(stop_words = 'english')
+tfidf = vectorizer.fit(word_data)
+print len(tfidf.get_feature_names())
+print tfidf.get_feature_names()[34597]
